@@ -11,7 +11,7 @@ export default function Home() {
         <Button>Click me</Button>
         <LineChart width={600} height={300} data={data}>
           <Line dataKey="uv" />
-        </LineChart>
+        </LineChart>    
     </div>
   );
 }
