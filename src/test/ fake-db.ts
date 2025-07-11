@@ -1,13 +1,21 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Company } from "@/types/company";
 import { Report } from "@/types/report";
 import { User, UserReport } from "@/types/user";
 
-interface FakeDbSets {
+export interface FakeDbSets {
   companies: Company[];
   reports: Report[];
   users: User[];
   userReports: UserReport[];
+}
+
+export interface FakeDbResult {
+    success: boolean;
+    message: string;
+    data: any;
 }
 
 class FakeDb {
@@ -307,29 +315,29 @@ class FakeDb {
   constructor() {
     // load all the tables from the local storage in case they exist
 
-    const companies = this.loadFromLocalStorage<Company[]>(this.COMPANIES_KEY);
-    if (companies != null) this.sets.companies = companies;
+    // const companies = this.loadFromLocalStorage<Company[]>(this.COMPANIES_KEY);
+    // if (companies != null) this.sets.companies = companies;
 
-    const reports = this.loadFromLocalStorage<Report[]>(this.REPORTS_KEY);
-    if (reports != null) this.sets.reports = reports;
+    // const reports = this.loadFromLocalStorage<Report[]>(this.REPORTS_KEY);
+    // if (reports != null) this.sets.reports = reports;
 
-    const users = this.loadFromLocalStorage<User[]>(this.USERS_KEY);
-    if (users != null) this.sets.users = users;
+    // const users = this.loadFromLocalStorage<User[]>(this.USERS_KEY);
+    // if (users != null) this.sets.users = users;
 
-    const userReports = this.loadFromLocalStorage<UserReport[]>(
-      this.USERREPORT_KEY
-    );
-    if (userReports != null) this.sets.userReports = userReports;
+    // const userReports = this.loadFromLocalStorage<UserReport[]>(
+    //   this.USERREPORT_KEY
+    // );
+    // if (userReports != null) this.sets.userReports = userReports;
   }
 
-  getMax(numbers: number[]): number | null {
-    if (numbers.length === 0) return null;
-    return Math.max(...numbers);
-  }
+
+  
+
 
   // CRUD operations
 
-  create(set: keyof FakeDbSets, item: any) {
+  async create(set: keyof FakeDbSets, item: any) : Promise<FakeDbResult> {
+    let message = `Added item to ${set} successfuly`;
     if (item.id === 0) {
       const max = this.getMax(this.sets[set].map((x) => x.id));
       item.id = max ? max + 1 : 1;
@@ -338,69 +346,118 @@ class FakeDb {
 
     const index = this.sets[set].findIndex((x) => x.id === item.id);
     if (index >= 0) {
-      console.log(`Item found in set ${set} with id ${item.id}`);
+      message = `Item found in set ${set} with id ${item.id}`;
     } else {
       this.sets[set].push(item);
     }
 
-    this.saveToLocalStorage(`fakedb-${set}`, this.sets[set]);
+    // this.saveToLocalStorage(`fakedb-${set}`, this.sets[set]);
+
+    // await this.sleep(3000); // simulate some api call delay
+
+    return {success: index >= 0, message: message, data: null};
   }
 
-  update(set: keyof FakeDbSets, id: number, item: any) {
+  async update(set: keyof FakeDbSets, id: number, item: any) : Promise<FakeDbResult> {
+    let message = `Item in ${set} with id ${id} updated successfuly`;
+
     const index = this.sets[set].findIndex((x) => x.id === id);
     if (index >= 0) {
       this.sets[set][index] = item;
     } else {
-      console.log(`Item not found in set ${set} with id ${id}`);
+      message = `Item not found in set ${set} with id ${id}`;
     }
 
-    this.saveToLocalStorage(`fakedb-${set}`, this.sets[set]);
+    // this.saveToLocalStorage(`fakedb-${set}`, this.sets[set]);
+
+    // await this.sleep(3000); // simulate some api call delay
+
+    return {success: index >= 0, message: message, data: null};
   }
 
-  delete(set: keyof FakeDbSets, id: number) {
+  async delete(set: keyof FakeDbSets, id: number) : Promise<FakeDbResult> {
+    let message = `Item in ${set} with id ${id} deleted successfuly`;
     const index = this.sets[set].findIndex((x) => x.id === id);
     if (index >= 0) {
       this.sets[set].splice(index, 1);
     } else {
-      console.log(`Item not found in set ${set} with id ${id}`);
+      message = `Item not found in set ${set} with id ${id}`;
     }
 
-    this.saveToLocalStorage(`fakedb-${set}`, this.sets[set]);
+    // this.saveToLocalStorage(`fakedb-${set}`, this.sets[set]);
+
+    // await this.sleep(3000); // simulate some api call delay
+
+    return {success: index >= 0, message: message, data: null};
   }
 
-  all(set: keyof FakeDbSets) {
-    return this.sets[set];
+   async get(set: keyof FakeDbSets, id: number) : Promise<FakeDbResult> {
+    let message = `Found item in ${set} with id ${id} `;
+
+    const index = this.sets[set].findIndex((x) => x.id === id);
+    
+    let result:any = null;
+    if (index >= 0) {
+        result = {...this.sets[set][index]}
+    } else {
+      message = `Item not found in set ${set} with id ${id}`;
+    }
+
+    // await this.sleep(3000); // simulate some api call delay
+
+
+    return {success: index >= 0, message: message, data: result};
+  }
+
+
+  async all(set: keyof FakeDbSets) : Promise<FakeDbResult> {
+
+    console.log("heeereeeeee");
+    // await this.sleep(3000); // simulate some api call delay
+
+    return {success: true, message: "",  data: this.sets[set]};
+
   }
 
   // Persistency
 
-  /**
-   * Retrieves a value from localStorage by key
-   * @param key - The key to look up in localStorage
-   * @returns The parsed value if found, or null if not found/invalid
-   */
-  loadFromLocalStorage<T>(key: string): T | null {
-    try {
-      const storedValue = localStorage.getItem(key);
-      if (storedValue === null) {
-        return null;
-      }
-      return JSON.parse(storedValue) as T;
-    } catch (error) {
-      console.error(`Error loading ${key} from localStorage:`, error);
-      return null;
-    }
+//   /**
+//    * Retrieves a value from localStorage by key
+//    * @param key - The key to look up in localStorage
+//    * @returns The parsed value if found, or null if not found/invalid
+//    */
+//   loadFromLocalStorage<T>(key: string): T | null {
+//     try {
+//       const storedValue = localStorage.getItem(key);
+//       if (storedValue === null) {
+//         return null;
+//       }
+//       return JSON.parse(storedValue) as T;
+//     } catch (error) {
+//       console.error(`Error loading ${key} from localStorage:`, error);
+//       return null;
+//     }
+//   }
+
+//   saveToLocalStorage<T>(key: string, value: T): boolean {
+//     try {
+//       localStorage.setItem(key, JSON.stringify(value));
+//       return true;
+//     } catch (error) {
+//       console.error(`Error saving ${key} to localStorage:`, error);
+//       return false;
+//     }
+//   }
+
+  // helpers
+  getMax(numbers: number[]): number | null {
+    if (numbers.length === 0) return null;
+    return Math.max(...numbers);
   }
 
-  saveToLocalStorage<T>(key: string, value: T): boolean {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-      return true;
-    } catch (error) {
-      console.error(`Error saving ${key} to localStorage:`, error);
-      return false;
-    }
-  }
+  sleep(ms:number) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+  };
 }
 
 export const fakeDb = new FakeDb();
