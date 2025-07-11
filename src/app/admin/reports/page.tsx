@@ -6,7 +6,7 @@ import { Report } from "@/types/report";
 const Reports: React.FC = () => {
 
     const reports: Report[] = [
-        {id: "1", name:"Sales", url:"sdf", companyId: 1, company: {id: 1, name: "Company1"}, public: true  }
+        {id: 1, name:"Sales", filename:"sdf", companyId: 1, company: {id: 1, name: "Company1"}, public: true  }
     ]
 
 

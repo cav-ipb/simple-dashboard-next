@@ -7,12 +7,13 @@ export interface User {
     lastName: string;
     email: string;
     companyId: number;
-    company: Company;
+    company?: Company;
     password?: string;
 }
 
 export interface UserReport {
+    id: number;
     userId: number;
-    reportId: string;
-    report: Report;
+    reportId: number;
+    report?: Report;
 }

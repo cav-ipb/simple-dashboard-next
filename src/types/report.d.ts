@@ -1,9 +1,9 @@
 import { Company } from "./company";
 
 export interface Report {
-    id: string;
+    id: number;
     name: string;
-    url: string;
+    filename: string;
     companyId: number;
     company?: Company;
     public: boolean;
