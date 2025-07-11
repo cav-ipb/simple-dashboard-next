@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react"
 import Link from "next/link"
-import { CircleCheckIcon, CircleHelpIcon, CircleIcon, LogOutIcon } from "lucide-react"
+import { LogOutIcon } from "lucide-react"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -27,7 +27,7 @@ export default function Header() {
     }
 
     return (
-        <div id="layout-header" className="fixed top-0 left-0 w-full h-16 py-2 px-10 flex gap-3 items-center bg-secondary shadow-[0px_4px_12px_rgba(0,0,0,0.1)]">
+        <div id="layout-header" className="z-20 fixed top-0 left-0 w-full h-16 py-2 px-10 flex gap-3 items-center bg-secondary shadow-[0px_4px_12px_rgba(0,0,0,0.1)]">
             <div>
                 <Image src={"/next.svg"} alt="logo" width={100} height={20}></Image>
             </div>

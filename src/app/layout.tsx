@@ -26,9 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-screen">
       <body>
-        <div id="layout-wrapper" className="h-screen p-16">
+        <div id="layout-wrapper" className="h-screen py-24">
           <Header/>
-          <div>
+          <div className="h-full">
 
             {children}
           </div>
