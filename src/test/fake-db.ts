@@ -418,6 +418,17 @@ class FakeDb {
 
   }
 
+
+  async getUserReports(id: number) : Promise<FakeDbResult> {
+      const user = this.sets.users.find(x => x.id === id);
+      if (user == null)
+        return {success: false, message: "user not found", data: null}
+
+      const reports = this.sets.reports.filter(x => x.companyId === user.companyId);
+
+      return {success: true, message: "successful", data: reports};
+  }
+
   // Persistency
 
 //   /**

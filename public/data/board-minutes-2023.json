@@ -1,0 +1,31 @@
+{
+  "id": "inventory",
+  "name": "Inventory Report",
+  "cards": {
+    "total": 18420,
+    "average": 526.29
+  },
+  "line": [
+    { "date": "2025-07-01", "value": 9000, "forecast": 9200 },
+    { "date": "2025-07-02", "value": 8800, "forecast": 9100 },
+    { "date": "2025-07-03", "value": 8600, "forecast": 9000 },
+    { "date": "2025-07-04", "value": 8500, "forecast": 8900 },
+    { "date": "2025-07-05", "value": 8400, "forecast": 8800 },
+    { "date": "2025-07-06", "value": 8420, "forecast": 8700 },
+    { "date": "2025-07-07", "value": 8600, "forecast": 8600 },
+    { "date": "2025-07-08", "value": 8900, "forecast": 8500 },
+    { "date": "2025-07-09", "value": 9200, "forecast": 8400 },
+    { "date": "2025-07-10", "value": 9500, "forecast": 8300 },
+    { "date": "2025-07-11", "value": 9800, "forecast": 8200 },
+    { "date": "2025-07-12", "value": 10100, "forecast": 8100 }
+  ],
+  "bar": [
+    { "category": "Warehouse A", "value": 3200, "capacity": 4000, "utilization": 80 },
+    { "category": "Warehouse B", "value": 2700, "capacity": 3500, "utilization": 77 },
+    { "category": "Warehouse C", "value": 2520, "capacity": 3000, "utilization": 84 },
+    { "category": "Warehouse D", "value": 1950, "capacity": 2500, "utilization": 78 },
+    { "category": "Warehouse E", "value": 1800, "capacity": 2000, "utilization": 90 },
+    { "category": "Warehouse F", "value": 1650, "capacity": 1800, "utilization": 92 },
+    { "category": "Warehouse G", "value": 1200, "capacity": 1500, "utilization": 80 }
+  ]
+}

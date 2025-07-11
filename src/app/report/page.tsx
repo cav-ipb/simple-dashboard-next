@@ -32,37 +32,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useReportsDetails } from "./use-report-details";
 
 const Report: React.FC = () => {
-  const reports = [
-    { id: "1", name: "sales" },
-    { id: "2", name: "markets" },
-    { id: "3", name: "distribution" },
-    { id: "4", name: "mobile" },
-    { id: "5", name: "partnerships" },
-    { id: "6", name: "data" },
-    { id: "7", name: "retail" },
-    { id: "8", name: "legal" },
-    { id: "9", name: "customer" },
-    { id: "10", name: "ml" },
-    { id: "11", name: "compliance" },
-    { id: "12", name: "cloud" },
-    { id: "13", name: "insights" },
-    { id: "14", name: "wholesale" },
-    { id: "15", name: "support" },
-    { id: "16", name: "mobile" },
-    { id: "17", name: "operations" },
-    { id: "18", name: "performance" },
-    { id: "19", name: "ai" },
-    { id: "12", name: "cloud" },
-    { id: "13", name: "insights" },
-    { id: "14", name: "wholesale" },
-    { id: "15", name: "support" },
-    { id: "16", name: "mobile" },
-    { id: "17", name: "operations" },
-    { id: "18", name: "performance" },
-    { id: "19", name: "ai" },
-  ];
 
   const line = [
     { date: "2025-07-01", value: 3500 },
@@ -130,6 +102,8 @@ const Report: React.FC = () => {
     { category: "APAC", value: 24000 },
   ];
 
+  const {reports, report, getReports, getReport} = useReportsDetails();
+
   return (
     <SidebarProvider defaultOpen={true}>
       <Sidebar className="pt-16">
@@ -139,10 +113,10 @@ const Report: React.FC = () => {
             <SidebarGroupLabel>Reports</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {reports.map((report) => (
-                  <SidebarMenuItem key={report.id}>
-                    <SidebarMenuButton asChild>
-                      <span>{report.name}</span>
+                {reports.map((r) => (
+                  <SidebarMenuItem key={r.id}>
+                    <SidebarMenuButton onClick={() => getReport(r)} asChild>
+                      <span>{r.name}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -164,7 +138,7 @@ const Report: React.FC = () => {
                 </CardAction>
               </CardHeader>
               <CardContent>
-                <p>25 000</p>
+                <p>{report?.cards.total}</p>
               </CardContent>
             </Card>
           </div>
@@ -177,7 +151,7 @@ const Report: React.FC = () => {
                 </CardAction>
               </CardHeader>
               <CardContent>
-                <p>25 000</p>
+                <p>{report?.cards.average}</p>
               </CardContent>
             </Card>
           </div>
@@ -190,7 +164,7 @@ const Report: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={line}>
+                  <LineChart data={report?.line}>
                     <CartesianGrid stroke="#ccc" />
                     <XAxis
                       dataKey="date"
@@ -216,7 +190,7 @@ const Report: React.FC = () => {
 
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={bar}>
+                  <BarChart data={report?.bar}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                       dataKey="category"
