@@ -85,7 +85,7 @@ const Users: React.FC = () => {
     <div className="px-5 lg:px-20">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Companies</CardTitle>
+          <CardTitle>Users</CardTitle>
         </CardHeader>
         <CardContent>
           {loadingAll && (

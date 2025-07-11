@@ -15,7 +15,12 @@ import { Company } from "@/types/company";
 import { PencilIcon, Plus, TrashIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CompanyForm } from "./form";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const Companies: React.FC = () => {
   const {
@@ -79,21 +84,25 @@ const Companies: React.FC = () => {
           </Button>
         </CardFooter>
       </Card>
-      
-      
-    <Dialog open={company != null} onOpenChange={(open) => {if (!open) setCompany(null)}}>
-    <DialogContent>
-        <DialogHeader>
-        <DialogTitle>{company?.id > 0 ? "Edit company" : "Create company"}</DialogTitle>
-        </DialogHeader>
-        <CompanyForm
-          onSubmit={(company) => updateCompany(company.id, company)}
-          company={company}
-        />
 
-    </DialogContent>
-    </Dialog>
-        
+      <Dialog
+        open={company != null}
+        onOpenChange={(open) => {
+          if (!open) setCompany(null);
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {company?.id > 0 ? "Edit company" : "Create company"}
+            </DialogTitle>
+          </DialogHeader>
+          <CompanyForm
+            onSubmit={(company) => updateCompany(company.id, company)}
+            company={company}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
