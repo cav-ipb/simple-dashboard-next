@@ -26,12 +26,10 @@ import { useLogin } from "@/hooks/use-login";
 import { useEffect } from "react";
 
 const Users: React.FC = () => {
-  
-    const {checkLogIn} = useLogin();
-    useEffect(()=> {
-      checkLogIn();
-    }, [])
-
+  const { checkLogIn } = useLogin();
+  useEffect(() => {
+    checkLogIn();
+  }, []);
 
   const {
     users,

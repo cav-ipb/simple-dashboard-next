@@ -55,11 +55,11 @@ export function useReports() {
   };
 
   return {
-     reports,
+    reports,
     report,
     loadingAll,
-     setReport,
-     getReports,
+    setReport,
+    getReports,
     deleteReport,
     getReport,
     updateReport,
