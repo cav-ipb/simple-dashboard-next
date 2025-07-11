@@ -37,7 +37,7 @@ const formSchema = z.object({
     message: "Provide a valid email",
   }),
   password: z.optional(
-    z.string().min(2, "The user's password must be at least 2 characters.")
+    z.string().min(2, "The user's password must be at least 2 characters."),
   ),
   companyId: z.number().min(1),
 });

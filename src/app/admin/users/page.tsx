@@ -22,8 +22,15 @@ import {
 } from "@/components/ui/dialog";
 import { UserForm } from "./form";
 import { useCompanies } from "../companies/use-company";
+import { useLogin } from "@/hooks/use-login";
+import { useEffect } from "react";
 
 const Users: React.FC = () => {
+  const { checkLogIn } = useLogin();
+  useEffect(() => {
+    checkLogIn();
+  }, []);
+
   const {
     users,
     user,

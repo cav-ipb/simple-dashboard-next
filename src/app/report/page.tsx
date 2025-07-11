@@ -33,9 +33,11 @@ import {
   YAxis,
 } from "recharts";
 import { useReportsDetails } from "./use-report-details";
+import { useLogin } from "@/hooks/use-login";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const Report: React.FC = () => {
-
   const line = [
     { date: "2025-07-01", value: 3500 },
     { date: "2025-07-02", value: 4100 },
@@ -102,7 +104,12 @@ const Report: React.FC = () => {
     { category: "APAC", value: 24000 },
   ];
 
-  const {reports, report, getReports, getReport} = useReportsDetails();
+  const { reports, report, getReports, getReport } = useReportsDetails();
+
+  const { checkLogIn } = useLogin();
+  useEffect(() => {
+    checkLogIn();
+  }, []);
 
   return (
     <SidebarProvider defaultOpen={true}>

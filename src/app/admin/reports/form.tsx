@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Report } from "@/types/report";
 
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -37,7 +36,7 @@ const formSchema = z.object({
     message: "The report's path name must be at least 2 characters.",
   }),
   companyId: z.number().min(1),
-  public: z.boolean()
+  public: z.boolean(),
 });
 
 export function ReportForm({
@@ -117,16 +116,17 @@ export function ReportForm({
             <FormItem>
               <FormLabel>Is Public:</FormLabel>
               <FormControl>
-                <Checkbox 
-                checked={field.value}
-          onCheckedChange={field.onChange}
-                 {...field} />
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-      
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>

@@ -21,8 +21,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useLogin } from "@/hooks/use-login";
+import { useEffect } from "react";
 
 const Companies: React.FC = () => {
+  const { checkLogIn } = useLogin();
+  useEffect(() => {
+    checkLogIn();
+  }, []);
+
   const {
     companies,
     company,
