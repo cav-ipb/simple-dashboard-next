@@ -1,4 +1,4 @@
-import { fakeDb, FakeDbSets } from "@/test/ fake-db";
+import { fakeDb, FakeDbSets } from "@/test/fake-db";
 
 export interface IDataService<T> {
    get(id:number) : Promise<T | null>;

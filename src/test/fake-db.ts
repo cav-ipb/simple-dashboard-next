@@ -363,7 +363,7 @@ class FakeDb {
 
     const index = this.sets[set].findIndex((x) => x.id === id);
     if (index >= 0) {
-      this.sets[set][index] = item;
+      this.sets[set][index] = {...this.sets[set][index], ...item};
     } else {
       message = `Item not found in set ${set} with id ${id}`;
     }
@@ -412,7 +412,6 @@ class FakeDb {
 
   async all(set: keyof FakeDbSets) : Promise<FakeDbResult> {
 
-    console.log("heeereeeeee");
     // await this.sleep(3000); // simulate some api call delay
 
     return {success: true, message: "",  data: this.sets[set]};

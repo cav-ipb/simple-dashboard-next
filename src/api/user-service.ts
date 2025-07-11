@@ -1,12 +1,13 @@
-import { Company } from "@/types/company";
+
 import { FakeDataService, IDataService } from "./data-service";
 import { FakeDbSets } from "@/test/fake-db";
+import { User } from "@/types/user";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface ICompanyService extends IDataService<Company> {
+export interface IUserService extends IDataService<User> {
     // this should be extended with custom functions for companies
 }
 
-export class FakeCompanySerivce extends FakeDataService<Company> implements ICompanyService {
-    set: keyof FakeDbSets = "companies";
+export class FakeUserService extends FakeDataService<User> implements IUserService {
+    set: keyof FakeDbSets = "users";
 }
