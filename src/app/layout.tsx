@@ -24,12 +24,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Header/>
-        {children}
+    <html lang="en" className="h-screen">
+      <body>
+        <div id="layout-wrapper" className="h-screen p-16">
+          <Header/>
+          <div>
+
+            {children}
+          </div>
+
+        </div>
       </body>
     </html>
   );

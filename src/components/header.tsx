@@ -20,12 +20,15 @@ export default function Header() {
 
     const onClickHandler = () => {
         console.log("Login out...");
-        router.push("/login");
+        router.push("/logout");
 
     }
 
     return (
-        <div id="app-header" className="w-full bg-primary flex py-2 px-10">
+        <div id="layout-header" className="fixed top-0 left-0 w-full h-16 py-2 px-10 flex items-center bg-secondary shadow-[0px_4px_12px_rgba(0,0,0,0.1)]">
+            <div>
+
+            </div>
             <div className="flex-1">
                 <NavigationMenu viewport={false}>
                     <NavigationMenuList>
@@ -63,7 +66,7 @@ export default function Header() {
             </div>
 
             <div>
-                <Button onClick={onClickHandler}>
+                <Button className="bg-secondary text-black hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground shadow-none" onClick={onClickHandler}>
                     <LogOutIcon/>
                 </Button>
             </div>
