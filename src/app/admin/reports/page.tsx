@@ -23,8 +23,16 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ReportForm } from "./form";
+import { useLogin } from "@/hooks/use-login";
+import { useEffect } from "react";
 
 const Reports: React.FC = () => {
+
+    const {checkLogIn} = useLogin();
+    useEffect(()=> {
+        checkLogIn();
+    }, []);
+
   const reportTableColumns: ColumnDef<Report>[] = [
     {
       accessorKey: "id",

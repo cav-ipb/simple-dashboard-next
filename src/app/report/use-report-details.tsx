@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Report, ReportDetails } from "@/types/report";
 import { FakeReportService, IReportService } from "@/api/report-service";
+import { User } from "@/types/user";
 
 export function useReportsDetails() {
   const [reports, setReports] = useState<Report[]>([]);
@@ -19,29 +20,38 @@ export function useReportsDetails() {
 
   const getReports = async () => {
     setLoadingAll(true);
-    const result = await service.getUserReports(1);
-    setReports(result);
-    setLoadingAll(false);
-    return result;
+    try {
+      const item = localStorage.getItem("user");
+      if (item == null) {
+        setLoadingAll(false);
+        return [];
+      }
+      const user = JSON.parse(item) as User;
+      const result = await service.getUserReports(user.id);
+      setReports(result);
+      setLoadingAll(false);
+      return result;
+    } catch (error) {
+      setLoadingAll(false);
+      return [];
+    }
   };
-
 
   const getReport = async (report: Report) => {
     setLoadingOperation(true);
     try {
       const response = await fetch(`/data/${report.filename}`);
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
       setReport(data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       return null;
     }
     setLoadingOperation(false);
   };
-
 
   return {
     reports,

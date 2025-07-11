@@ -429,6 +429,15 @@ class FakeDb {
       return {success: true, message: "successful", data: reports};
   }
 
+  async login(email:string, password:string) : Promise<FakeDbResult> {
+      const user = this.sets.users.find(x => x.email === email && password === password);
+      if (user != null){
+        user.password = "XSRF-TOKEN";
+        return {success: true, message: "loged in", data: user};
+      }
+      return {success: false, message: "invalid credentials", data: null};
+  }
+
   // Persistency
 
 //   /**

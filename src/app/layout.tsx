@@ -1,3 +1,5 @@
+
+
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/header";
@@ -13,7 +15,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
+
+
     <html lang="en" className="h-screen">
       <body>
         <div id="layout-wrapper" className="h-screen py-24">

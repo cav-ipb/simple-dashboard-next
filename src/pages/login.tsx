@@ -1,9 +1,30 @@
 import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useLogin } from "@/hooks/use-login";
 import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
+
+const formSchema = z.object({
+  email: z.email({message: "Please type in a valid email"}),
+  password: z.string({message: "Please type in your password"})
+});
 
 export default function Login() {
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {email: "", password: ""}
+    });
+
+    const {loading, login} = useLogin();
+
+    const onSubmit = ({email, password}: {email: string, password:string}) => {
+        login(email, password);
+    }
 
     return (
         
@@ -19,22 +40,40 @@ export default function Login() {
                         <p className="text-sm font-medium text-gray-400">Sign in to continue</p>
                     </div>
                     <div className="w-full flex flex-col gap-5 w-[200px]">
-                        <div>
-                            <label>Email</label>
-                            <Input type="email" placeholder="Email"/>
-                        </div>
-                        <div>
-                            <label>Password</label>
-                            <Input type="password" placeholder="Password" />
-                        </div>
-                        <Button className="h-11">Sign In</Button>
-                    </div>
-                    <div className="pt-2">
-                        Do you need to <a className="font-medium text-primary">recover your password?</a>
+                        <Form {...form}>
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                                <FormField
+                                control={form.control}
+                                name="email"
+                                render={({ field }) => (
+                                    <FormItem>
+                                    <FormLabel>Email:</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Email" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                    </FormItem>
+                                )}
+                                />
+                                <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field }) => (
+                                    <FormItem>
+                                    <FormLabel>Password:</FormLabel>
+                                    <FormControl>
+                                        <Input type="password" placeholder="Password" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                    </FormItem>
+                                )}
+                                />
+                                <Button type="submit">Submit</Button>
+                            </form>
+                        </Form>
                     </div>
                 </div>
         </div>
-        
 
     );
 };

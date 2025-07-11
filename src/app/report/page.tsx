@@ -33,6 +33,9 @@ import {
   YAxis,
 } from "recharts";
 import { useReportsDetails } from "./use-report-details";
+import { useLogin } from "@/hooks/use-login";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const Report: React.FC = () => {
 
@@ -103,6 +106,11 @@ const Report: React.FC = () => {
   ];
 
   const {reports, report, getReports, getReport} = useReportsDetails();
+
+    const {checkLogIn} = useLogin();
+    useEffect(()=> {
+      checkLogIn();
+    }, [])
 
   return (
     <SidebarProvider defaultOpen={true}>
