@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/navigation-menu"
 import { Button } from "./ui/button"
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
+
 
 export default function Header() {
 
@@ -25,9 +27,9 @@ export default function Header() {
     }
 
     return (
-        <div id="layout-header" className="fixed top-0 left-0 w-full h-16 py-2 px-10 flex items-center bg-secondary shadow-[0px_4px_12px_rgba(0,0,0,0.1)]">
+        <div id="layout-header" className="fixed top-0 left-0 w-full h-16 py-2 px-10 flex gap-3 items-center bg-secondary shadow-[0px_4px_12px_rgba(0,0,0,0.1)]">
             <div>
-
+                <Image src={"/next.svg"} alt="logo" width={100} height={20}></Image>
             </div>
             <div className="flex-1">
                 <NavigationMenu viewport={false}>
